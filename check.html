@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>เช็คชื่อ</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #f5f7fb;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+        .name {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 18px;
+            transition: 0.2s;
+        }
+
+        .name:hover {
+            background-color: #f1f5ff;
+        }
+
+        /* คนที่เช็คแล้ว */
+        .checked {
+            background-color: #dcfce7;
+            color: #166534;
+            text-decoration: line-through;
+        }
+
+        input[type="checkbox"] {
+            transform: scale(1.3);
+            cursor: pointer;
+        }
+
+        .btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #1e40af;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h2>📋 เช็คชื่อ</h2>
+
+    
+    <div class="name"><span>1. Mafai Losemamind</span><input type="checkbox" onchange="save(this,0)"></div>
+    <div class="name"><span>2. Andar Losemamind</span><input type="checkbox" onchange="save(this,1)"></div>
+    <div class="name"><span>3. Kla Losemamind</span><input type="checkbox" onchange="save(this,2)"></div>
+    <div class="name"><span>4. Beryl Maximillian</span><input type="checkbox" onchange="save(this,3)"></div>
+    <div class="name"><span>5. Noel Endless</span><input type="checkbox" onchange="save(this,4)"></div>
+    <div class="name"><span>6. Jab Barnaby</span><input type="checkbox" onchange="save(this,5)"></div>
+    <div class="name"><span>7. Chloe Midlam</span><input type="checkbox" onchange="save(this,6)"></div>
+    <div class="name"><span>8. Chopper Hawthorne</span><input type="checkbox" onchange="save(this,7)"></div>
+    <div class="name"><span>9. Camel Fatboy</span><input type="checkbox" onchange="save(this,8)"></div>
+
+    <button class="btn" onclick="resetData()">รีเซ็ต</button>
+
+</div>
+
+<script>
+
+window.onload = function() {
+    const data = JSON.parse(localStorage.getItem("checklist")) || [];
+    const rows = document.querySelectorAll(".name");
+
+    data.forEach((val, i) => {
+        if(val){
+            rows[i].classList.add("checked");
+            rows[i].querySelector("input").checked = true;
+        }
+    });
+}
+
+
+function save(el, index){
+    let data = JSON.parse(localStorage.getItem("checklist")) || [];
+    data[index] = el.checked;
+    localStorage.setItem("checklist", JSON.stringify(data));
+
+    if(el.checked){
+        el.parentElement.classList.add("checked");
+    } else {
+        el.parentElement.classList.remove("checked");
+    }
+}
+
+
+function resetData(){
+    localStorage.removeItem("checklist");
+    location.reload();
+}
+</script>
+
+</body>
+</html>
